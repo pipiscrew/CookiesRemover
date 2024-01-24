@@ -1,0 +1,48 @@
+Windows Registry Editor Version 5.00
+
+;======================================== HKEY_CLASSES_ROOT ========================================
+;========== what value declared (aka %regEntryID%) at HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\Capabilities\URLAssociations
+[HKEY_CLASSES_ROOT\%regEntryID%]
+@="%applicationName% HTML Document"
+"AppUserModelId"="%applicationName%"
+
+[HKEY_CLASSES_ROOT\%regEntryID%\Application]
+"AppUserModelId"="%applicationName%"
+"ApplicationIcon"="%executable%,0"
+"ApplicationName"="%applicationName%"
+
+[HKEY_CLASSES_ROOT\%regEntryID%\DefaultIcon]
+@="%executable%,0"
+
+[HKEY_CLASSES_ROOT\%regEntryID%\shell\open\command]
+@="\"%executable%\" \"%1\""
+
+
+;======================================== HKEY_LOCAL_MACHINE ========================================
+[HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%]
+@="%applicationName%"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\Capabilities]
+"ApplicationIcon"="%executable%,0"
+"ApplicationName"="%applicationName%"
+
+;========== not required
+[HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\Capabilities\FileAssociations]
+".htm"="%regEntryID%"
+".html"="%regEntryID%"
+".pdf"="%regEntryID%"
+
+;========== this is declares a redirect to HKEY_CLASSES_ROOT\%regEntryID%
+[HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\Capabilities\URLAssociations]
+"http"="%regEntryID%"
+"https"="%regEntryID%"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\DefaultIcon]
+@="%executable%,0"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\shell\open\command]
+@="\"%executable%\""
+
+;========== this is mandatory DECLARATION - redirect to HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\%applicationName%\Capabilities
+[HKEY_LOCAL_MACHINE\SOFTWARE\RegisteredApplications]
+"%applicationName%"="Software\\Clients\\StartMenuInternet\\%applicationName%\\Capabilities"
